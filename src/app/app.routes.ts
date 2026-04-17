@@ -11,11 +11,14 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
     component: LoginComponent,
+    data: {
+      breadcrumb: null
+    },
     canActivate: [loginGuard]
   },
   {
@@ -25,18 +28,25 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        data: {
+          breadcrumb: 'Home'
+        }
       },
       {
         path: 'users',
         children: [
           {
             path: '',
-            component: UsersComponent
+            component: UsersComponent,
+            data: {
+              breadcrumb: 'Users'
+            }
           },
           {
             path: ':id',
-            loadComponent: () => import('../app/users/user-details/user-details').then(m => m.UserDetailsComponent)
+            loadComponent: () => import('../app/users/user-details/user-details').then(m => m.UserDetailsComponent),
+            data: { breadcrumb: (_data: Record<string, unknown>, params: Record<string, string>) => `User ${params['id']}` }
           }
         ]
       },
@@ -45,11 +55,15 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            component: ProductsComponent
+            component: ProductsComponent,
+            data: {
+              breadcrumb: 'Products'
+            }
           },
           {
             path: ':id',
-            loadComponent: () => import('../app/products/product-details/product-details').then(m => m.ProductDetailsComponent)
+            loadComponent: () => import('../app/products/product-details/product-details').then(m => m.ProductDetailsComponent),
+            data: { breadcrumb: 'Product details' }
           }
         ]
       }

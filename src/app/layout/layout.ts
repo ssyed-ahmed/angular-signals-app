@@ -2,15 +2,11 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { AuthStore } from '../store/auth.store';
+import { BreadcrumbComponent } from '../widgets/breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-layout',
-  imports: [
-    RouterOutlet,
-    NgbCollapse,
-    RouterLink,
-    RouterLinkActive
-  ],
+  imports: [RouterOutlet, NgbCollapse, RouterLink, RouterLinkActive, BreadcrumbComponent],
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss'],
 })
