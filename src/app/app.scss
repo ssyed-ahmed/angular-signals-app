@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: linear-gradient(160deg, #f3f7ff 0%, #ffffff 55%, #edfdf8 100%);
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.counter-card {
+  width: min(30rem, 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid #d4def5;
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgba(22, 49, 114, 0.12);
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #3f5aa8;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0 0 1rem;
+}
+
+.value-block {
+  margin-bottom: 1.5rem;
+}
+
+.value-block p {
+  margin: 0.25rem 0;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+button {
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  background: #24408e;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:nth-child(2) {
+  background: #5a6478;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}

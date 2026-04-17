@@ -1,0 +1,22 @@
+<div class="position-fixed top-0 start-2 end-5 p-3" style="z-index: 1055; width: 60%; left: 435px; top: 12px !important;">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div class="alert alert-{{toast.type}} d-flex align-items-center alert-dismissible fade show">
+      @switch(toast.type) {
+        @case (ToastType.success) {
+          <span class="icon"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+        }
+        @case (ToastType.warning) {
+          <span class="icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+        }
+        @case (ToastType.danger) {
+          <span class="icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+        }
+        @case (ToastType.info) {
+          <span class="icon"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>
+        }
+      }
+      <span class="message">{{ toast.message }}</span>
+      <button class="btn-close mt-1" (click)="toastService.hide(toast.id)"></button>
+    </div>
+  }
+</div>

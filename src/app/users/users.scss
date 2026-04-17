@@ -1,0 +1,22 @@
+.table tbody tr.user-row-edit,
+.table tbody tr.user-row-edit > * {
+  cursor: pointer !important;
+}
+
+.user-row-edit:hover > * {
+  background-color: lightskyblue;
+}
+
+.user-edit {
+  cursor: pointer;
+}
+
+.total-users {
+  display: -moz-box;
+  background-color: lightskyblue;
+  width: 220px;
+  max-width: 270px;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 0;
+}

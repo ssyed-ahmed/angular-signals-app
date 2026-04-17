@@ -1,0 +1,10 @@
+<article class="product-card" (click)="openProductDetails(product.id)">
+  <h4 class="product-card__title">{{ product.title }}</h4>
+  <hr>
+  <img src="{{ product.thumbnail }} ">
+  <div class="product-card__discount">
+    {{ product.discountPercentage }}% off
+  </div>
+  <span class="product-card__originalPrice">${{ product.price }}</span>
+  <span class="product-card__newPrice">${{ (product.price - ( product.price * (product.discountPercentage / 100))) | number: '1.2-2'  }}</span>
+</article>

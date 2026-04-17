@@ -1,0 +1,52 @@
+<div class="layout container-fluid">
+  <nav class="layout__nav navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <div class="layout__header">
+        <a class="layout__brand-link navbar-brand" routerLink="/">
+          <img src="images_brand.jpg" class="layout__brand-image" />
+        </a>
+        <div class="layout__header-links">
+          <button class="layout__menu-toggle navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- ngbCollapse directive manages visibility -->
+          <div class="layout__header-content">
+            <div [ngbCollapse]="isMenuCollapsed" class="layout__route-links collapse navbar-collapse">
+              <ul class="layout__nav-list navbar-nav">
+                <li class="layout__nav-item nav-item">
+                  <a class="layout__nav-link nav-link" routerLink="/home" routerLinkActive="text-primary"><i
+                    class="fa-solid fa-home"></i> Home</a>
+                </li>
+                <li class="layout__nav-item nav-item">
+                  <a class="layout__nav-link nav-link" routerLink="/products" routerLinkActive="text-primary"><i
+                    class="fa-solid fa-globe"></i> Products</a>
+                </li>
+                <li class="layout__nav-item nav-item">
+                  <a class="layout__nav-link nav-link" routerLink="/users" routerLinkActive="text-primary"><i
+                    class="fa-solid fa-user"></i> Users</a>
+                </li>
+              </ul>
+            </div>
+            <div class="layout__user">
+              <div class="layout__welcome">
+                <span class="layout__welcome-label">Welcome, </span>
+                <span class="layout__welcome-value text-primary"><i class="fa-solid fa-user"></i> {{ authStore.userEmail() }}</span>
+              </div>
+              <p class="layout__logout">
+                <span (click)="handleSignOut()">Sign out</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="layout__content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
+<!--<div class="container-fluid">-->
+<!--  <footer class="layout__footer" [class.layout__footer&#45;&#45;visible]="isFooterVisible"></footer>-->
+<!--</div>-->

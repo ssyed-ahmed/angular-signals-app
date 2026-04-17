@@ -1,0 +1,56 @@
+@if (usersStore.isLoading()) {
+  <app-spinner></app-spinner>
+} @else {
+  <div class="mt-5">
+    <form>
+      <div class="row mb-3">
+        <div class="col-xs-9 col-sm-9">
+          <div class="input-group">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fa fa-search"></i> <!-- Using Bootstrap Icons -->
+          </span>
+            <input type="text" class="form-control" [formControl]="filter"
+                   placeholder="Search by First name, Middle name, Last name or Email Id" aria-label="Search">
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-auto">
+          <button type="button" class="btn btn-dark" (click)="addNewUser()" )><i class="fa-solid fa-user-plus"></i> Add
+            new user
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="mt-2">
+    <h5 class="total-users">Total no. of Users: {{ filteredUsers().length }}</h5>
+    <table class="table table-striped">
+      <thead>
+      <tr class="table-dark">
+        <th scope="col">User Id</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Middle Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email Id</th>
+        <th scope="col">Mobile No.</th>
+        <th scope="col">Alt Mobile No.</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (user of filteredUsers(); track user.id; let i = $index) {
+          <tr class="user-row-edit" (click)="openUserDetails(user.id)">
+            <td>
+              <i class="fa-solid fa-user"></i> {{ user.id }}
+            </td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.middleName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.emailId }}</td>
+            <td>{{ user.mobileNo }}</td>
+            <td>{{ user.altMobileNo }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+

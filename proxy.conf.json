@@ -1,0 +1,17 @@
+{
+  "/api/": {
+    "target": "https://freeapi.miniprojectideas.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api2": {
+    "target": "https://dummyjson.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api2": ""
+    }
+  }
+}

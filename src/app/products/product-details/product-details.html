@@ -1,0 +1,143 @@
+@if (isLoading()) {
+  <app-spinner></app-spinner>
+}
+@if (selectedProduct(); as product) {
+  <div class="product-shell">
+    <div class="carousel-shell">
+      @if (product.images && product.images.length > 1) {
+        <button class="carousel-control-btn" type="button" aria-label="Previous image" (click)="showPrevious(product.images.length)">
+          <i class="fa-solid fa-chevron-left control-icon" aria-hidden="true"></i>
+          <span class="visually-hidden">Previous</span>
+        </button>
+      }
+      <div id="carouselExample" class="carousel slide product-carousel">
+        <div class="carousel-inner">
+          @if (product.images.length === 1) {
+            <div class="carousel-item active">
+              <img src="{{ product.images ? product.images[0] : '' }}" class="d-block w-100" alt="...">
+            </div>
+          } @else {
+            @for (image of product.images; track $index; let i = $index) {
+              <div class="carousel-item" [class.active]="i === activeImageIndex()">
+                <img src="{{ image }}" class="d-block w-100" alt="...">
+              </div>
+            }
+          }
+        </div>
+      </div>
+      @if (product.images && product.images.length > 1) {
+        <button class="carousel-control-btn" type="button" aria-label="Next image" (click)="showNext(product.images.length)">
+          <i class="fa-solid fa-chevron-right control-icon" aria-hidden="true"></i>
+          <span class="visually-hidden">Next</span>
+        </button>
+      }
+    </div>
+    <div class="product-cart-shell">
+      <p class="product-cart-shell__price">${{ (product.price - ( product.price * (product.discountPercentage / 100))) | number: '1.2-2'  }}</p>
+      @if (product.availabilityStatus === 'In Stock') {
+        <p class="product-cart-shell__availability-in-stock">
+          {{ product.availabilityStatus }}
+        </p>
+      } @else {
+        <p class="product-cart-shell__availability-low-stock">
+          {{ product.availabilityStatus }}
+        </p>
+      }
+      <p>{{ product.shippingInformation }}</p>
+      <p>Minimum order quantity: {{ product.minimumOrderQuantity }}</p>
+      <form>
+        <div class="row mb-3">
+          <label for="quantity" class="col-3">Quantity</label>
+          <div class="col-9">
+            <input type="number" id="quantity" class="form-control" [formControl]="quantity" min="{{ product.minimumOrderQuantity }}">
+          </div>
+        </div>
+      </form>
+      <button type="button" class="btn btn-warning mb-3">Add to cart</button>
+      <button type="button" class="btn btn-success mb-3">Buy now</button>
+      <p>Returns: {{ product.returnPolicy }}</p>
+    </div>
+  </div>
+  <div class="mt-5">
+    <div class="row">
+      <div class="col-6">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Product Details
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <table class="table table-striped mt-0">
+                  <tbody>
+                  <tr>
+                    <td>Category: </td>
+                    <td>{{ selectedProduct()?.category }}</td>
+                  </tr>
+                  <tr>
+                    <td>Brand: </td>
+                    <td>{{ selectedProduct()?.brand ?? 'Unknown' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Description: </td>
+                    <td>{{ selectedProduct()?.description }}</td>
+                  </tr>
+                  <tr>
+                    <td>Shipping information: </td>
+                    <td>{{ selectedProduct()?.shippingInformation }}</td>
+                  </tr>
+                  <tr>
+                    <td>Warranty information: </td>
+                    <td>{{ selectedProduct()?.warrantyInformation }}</td>
+                  </tr>
+                  <tr>
+                    <td>Return policy: </td>
+                    <td>{{ selectedProduct()?.returnPolicy }}</td>
+                  </tr>
+                  <tr>
+                    <td>Weight: </td>
+                    <td>{{ selectedProduct()?.weight }} grams</td>
+                  </tr>
+                  <tr>
+                    <td>Availability status: </td>
+                    <td>{{ selectedProduct()?.availabilityStatus }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Product Dimensions
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <table class="table table-striped mt-0">
+                  <tbody>
+                  <tr>
+                    <td>Width: </td>
+                    <td>{{ selectedProduct()?.dimensions?.width }}</td>
+                  </tr>
+                  <tr>
+                    <td>Height: </td>
+                    <td>{{ selectedProduct()?.dimensions?.height }}</td>
+                  </tr>
+                  <tr>
+                    <td>Depth: </td>
+                    <td>{{ selectedProduct()?.dimensions?.depth }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

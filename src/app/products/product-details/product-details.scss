@@ -1,0 +1,80 @@
+.product-shell {
+  display: flex;
+  flex-direction: row;
+}
+.carousel-shell {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.product-cart-shell {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  min-width: 300px;
+  border: 1px solid #ccc;
+
+  &__price {
+    font-size: 1.5rem;
+  }
+
+  &__availability-in-stock {
+    color: var(--bs-success);
+  }
+
+  &__availability-low-stock {
+    color: var(--bs-warning);
+  }
+}
+
+.product-carousel {
+  width: 40%;
+}
+
+.carousel-control-btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  opacity: 1;
+  padding: 0;
+}
+
+.control-icon {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 1.1rem;
+  height: 2.4rem;
+  justify-content: center;
+  width: 2.4rem;
+}
+
+@media (max-width: 768px) {
+  .product-carousel {
+    width: 70%;
+  }
+}
+
+.table tbody tr td:first-child {
+  font-weight: bold;
+  padding-left: 15px;
+}
+
+.accordion-button {
+  background-color: black;
+  color: white;
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.product-title {
+  font-size: 1.5rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  width: 100%;
+}

@@ -1,0 +1,54 @@
+@if (isLoading()) {
+  <app-spinner></app-spinner>
+}
+@if (selectedUser(); as user) {
+  <div class="mt-5">
+    <div class="title-container">
+      <h4><i class="fa-solid fa-user"></i> User Details</h4>
+      <div class="edit-icon-container">
+        <button type="button" class="btn btn-dark" (click)="editUserDetails()">
+          <i class="fa-solid fa-edit icon-style"></i>
+        </button>
+      </div>
+      <div class="delete-icon-container">
+        <button type="button" class="btn btn-danger" (click)="deleteUser()">
+          <i class="fa-solid fa-trash-can icon-style"></i>
+        </button>
+      </div>
+    </div>
+    <table class="table table-striped mt-0">
+      <tbody>
+      <tr>
+        <td>User Id: </td>
+        <td>{{ user.id }}</td>
+      </tr>
+      <tr>
+        <td>First Name: </td>
+        <td>{{ user.firstName }}</td>
+      </tr>
+      <tr>
+        <td>Middle Name: </td>
+        <td>{{ user.middleName }}</td>
+      </tr>
+      <tr>
+        <td>Last Name: </td>
+        <td>{{ user.lastName }}</td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td>{{ user.emailId }}</td>
+      </tr>
+      <tr>
+        <td>Mobile Number: </td>
+        <td>{{ user.mobileNo }}</td>
+      </tr>
+      <tr>
+        <td>Alternate Mobile Number: </td>
+        <td>{{ user.altMobileNo }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+} @else if (!isLoading() && selectedUser() === undefined) {
+  <h4 class="mt-5">User not found!</h4>
+}

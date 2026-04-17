@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa-solid fa-user"></i> {{ modalTitle }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="newUserForm">
+    <div class="row mb-3">
+      <label for="firstName" class="col-sm-2 col-form-label">First Name *</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="firstName" aria-describedby="firstName" formControlName="firstName">
+        @if(newUserForm.dirty && newUserForm.controls.firstName.hasError('required')) {
+          <small class="text-danger">This is a required field.</small>
+        }
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="middleName" class="col-sm-2 col-form-label">Middle Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="middleName" formControlName="middleName">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="lastName" class="col-sm-2 col-form-label">Last Name *</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="lastName" aria-describedby="lastName" formControlName="lastName">
+        @if(newUserForm.dirty && newUserForm.controls.lastName.hasError('required')) {
+          <small class="text-danger">This is a required field.</small>
+        }
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="emailId" class="col-sm-2 col-form-label">Email Id *</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="emailId" aria-describedby="emailId" formControlName="emailId">
+        @if(newUserForm.dirty && newUserForm.controls.emailId.hasError('required')) {
+          <small class="text-danger">This is a required field.</small>
+        }
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="mobileNo" class="col-sm-2 col-form-label">Mobile No. *</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="mobileNo" aria-describedby="mobileNo" formControlName="mobileNo">
+        @if(newUserForm.dirty && newUserForm.controls.mobileNo.hasError('required')) {
+          <small class="text-danger">This is a required field.</small>
+        }
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="altMobileNo" class="col-sm-2 col-form-label">Alt Mobile No.</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="altMobileNo" aria-describedby="altMobileNo" formControlName="altMobileNo">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="activeModal.dismiss('Close click')">Cancel</button>
+  <button type="button" class="btn btn-outline-primary" (click)="addNewUser()">Save</button>
+</div>

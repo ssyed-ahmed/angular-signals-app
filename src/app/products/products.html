@@ -1,0 +1,12 @@
+@if (productsStore.isLoading()) {
+  <app-spinner></app-spinner>
+} @else {
+  <div class="products-list mt-5">
+    @for (product of products(); track product.id) {
+      <app-product
+        [product]="product"
+      ></app-product>
+    }
+  </div>
+}
+
