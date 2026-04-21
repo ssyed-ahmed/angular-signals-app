@@ -8,5 +8,15 @@
       ></app-product>
     }
   </div>
+  <div class="mt-5">
+    <ngb-pagination
+      [collectionSize]="totalCount"
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [maxSize]="10"
+      [boundaryLinks]="true"
+      (pageChange)="navigateToPage($event)"
+    />
+  </div>
 }
 

@@ -1,4 +1,4 @@
-@if (isLoading()) {
+@if (productsStore.isLoading()) {
   <app-spinner></app-spinner>
 }
 @if (selectedProduct(); as product) {

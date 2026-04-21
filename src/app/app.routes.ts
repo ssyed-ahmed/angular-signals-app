@@ -17,56 +17,69 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: {
-      breadcrumb: null
+      breadcrumb: null,
     },
-    canActivate: [loginGuard]
+    canActivate: [loginGuard],
   },
   {
     path: '',
     component: LayoutComponent,
     canActivate: [authGuard],
+    data: {
+      breadcrumb: null,
+    },
     children: [
       {
         path: 'home',
         component: HomeComponent,
         data: {
-          breadcrumb: 'Home'
-        }
+          breadcrumb: 'Home',
+        },
       },
       {
         path: 'users',
+        data: {
+          breadcrumb: 'Users',
+        },
         children: [
           {
             path: '',
             component: UsersComponent,
-            data: {
-              breadcrumb: 'Users'
-            }
           },
           {
             path: ':id',
-            loadComponent: () => import('../app/users/user-details/user-details').then(m => m.UserDetailsComponent),
-            data: { breadcrumb: (_data: Record<string, unknown>, params: Record<string, string>) => `User ${params['id']}` }
-          }
-        ]
+            loadComponent: () =>
+              import('../app/users/user-details/user-details').then((m) => m.UserDetailsComponent),
+            data: {
+              breadcrumb: (_data: Record<string, unknown>, params: Record<string, string>) =>
+                `User ${params['id']}`,
+            },
+          },
+        ],
       },
       {
         path: 'products',
+        data: {
+          breadcrumb: 'Products',
+        },
         children: [
           {
             path: '',
             component: ProductsComponent,
-            data: {
-              breadcrumb: 'Products'
-            }
           },
           {
             path: ':id',
-            loadComponent: () => import('../app/products/product-details/product-details').then(m => m.ProductDetailsComponent),
-            data: { breadcrumb: 'Product details' }
-          }
-        ]
-      }
-    ]
-  }
+            loadComponent: () =>
+              import('../app/products/product-details/product-details').then(
+                (m) => m.ProductDetailsComponent,
+              ),
+            data: {
+              breadcrumb: (_data: Record<string, unknown>, params: Record<string, string>) =>
+                `Product ${params['id']}`,
+            },
+          },
+        ],
+      },
+    ],
+  },
 ];

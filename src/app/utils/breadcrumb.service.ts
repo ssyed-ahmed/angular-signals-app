@@ -19,7 +19,11 @@ export class BreadcrumbService {
       this._breadcrumbs.set(
         this.buildBreadcrumbs(this.router.routerState.snapshot.root)
       );
-    })
+    });
+
+    this._breadcrumbs.set(
+      this.buildBreadcrumbs(this.router.routerState.snapshot.root)
+    );
   }
 
   private buildBreadcrumbs(
@@ -50,10 +54,12 @@ export class BreadcrumbService {
               primaryChild.params as Record<string, string>
             ) : breadcrumb;
         if (label) {
-          breadcrumbs.push({
-            label,
-            url: currentUrl || '/',
-          });
+          if (breadcrumbs.length === 0 || breadcrumbs[breadcrumbs.length - 1].url !== (currentUrl || '/')) {
+            breadcrumbs.push({
+              label,
+              url: currentUrl || '/ ',
+            });
+          }
         }
       }
 

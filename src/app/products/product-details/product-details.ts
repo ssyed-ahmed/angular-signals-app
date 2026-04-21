@@ -20,10 +20,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   productsStore = inject(ProductsStore);
   readonly activeImageIndex = signal(0);
 
-  readonly isLoading = computed<boolean>(() => {
-    const productId = this.routeProductId();
-    return productId !== null && this.productsStore.entities().length === 0;
-  });
+  // readonly isLoading = computed<boolean>(() => {
+  //   const productId = this.routeProductId();
+  //   return productId !== null && this.productsStore.entities().length === 0;
+  // });
 
   private readonly routeProductId = toSignal(
     this.route.paramMap.pipe(
@@ -81,9 +81,11 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.productsStore.entities().length === 0) {
-      this.productsStore.getAllProducts();
-    }
+    // if (this.productsStore.entities().length === 0) {
+    //   this.productsStore.getAllProducts();
+    // }
+    const id = this.routeProductId() ?? -1;
+    this.productsStore.getProductById(id);
   }
 
   ngAfterViewInit() {
