@@ -1,7 +1,7 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { Product, ProductsResponse } from '../models/product';
-import { setAllEntities, updateEntity, withEntities } from '@ngrx/signals/entities';
+import { addEntity, setAllEntities, withEntities } from '@ngrx/signals/entities';
 import { inject } from '@angular/core';
 import { ToastService } from '../widgets/toast/toast.service';
 import { ProductService } from './products.service';
@@ -56,7 +56,7 @@ export const ProductsStore = signalStore(
         switchMap((id) =>
           productsService.getProductById(id).pipe(
             tap((product: Product) => {
-              patchState(store, updateEntity({id: product.id, changes: {...product}}))
+              patchState(store, addEntity(product));
             }),
             catchError((error) => {
               patchState(store, { error: error.message });
