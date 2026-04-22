@@ -4,7 +4,7 @@
       @for (crumb of breadcrumbService.breadcrumbs(); track crumb.url; let last = $last) {
         <li class="breadcrumb-item">
           @if (!last) {
-            <a [routerLink]="crumb.url">{{ crumb.label }}</a> /
+            <a [routerLink]="crumb.url">{{ crumb.label }}</a>
             <span class="separator" aria-hidden="true"></span>
           } @else {
             <span aria-current="page">{{ crumb.label }}</span>

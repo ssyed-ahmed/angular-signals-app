@@ -34,12 +34,11 @@ export class BreadcrumbService {
     let currentUrl = '';
 
     while (currentRoute) {
-      const primaryChild: ActivatedRouteSnapshot | null = currentRoute.children.find(child => child.outlet === PRIMARY_OUTLET) ?? currentRoute.firstChild;
-      if (!primaryChild) {
+      const primaryChild: ActivatedRouteSnapshot | null = currentRoute.children.find(child => child.outlet === PRIMARY_OUTLET) ?? currentRoute.firstChild;      if (!primaryChild) {
         break;
       }
 
-      const routeUrl = primaryChild.url.map(segment => segment.path).join('/');
+      const routeUrl = primaryChild.url.map(segment => segment.path).join(' > ');
       if (routeUrl) {
         currentUrl += `/${routeUrl}`;
       }
@@ -57,7 +56,7 @@ export class BreadcrumbService {
           if (breadcrumbs.length === 0 || breadcrumbs[breadcrumbs.length - 1].url !== (currentUrl || '/')) {
             breadcrumbs.push({
               label,
-              url: currentUrl || '/ ',
+              url: currentUrl || '/',
             });
           }
         }

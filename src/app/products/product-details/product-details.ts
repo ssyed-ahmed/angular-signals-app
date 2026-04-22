@@ -5,12 +5,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { ProductsStore } from '../../store/products.store';
 import { SpinnerComponent } from '../../widgets/spinner/spinner';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-details',
-  imports: [SpinnerComponent, DecimalPipe, ReactiveFormsModule],
+  imports: [SpinnerComponent, DecimalPipe, ReactiveFormsModule, NgbRatingModule, DatePipe],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss',
 })
@@ -18,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   route = inject(ActivatedRoute);
   productsStore = inject(ProductsStore);
   readonly activeImageIndex = signal(0);
+  rating = signal(2.5);
 
   private readonly routeProductId = toSignal(
     this.route.paramMap.pipe(
@@ -59,6 +61,7 @@ export class ProductDetailsComponent implements OnInit {
       const product = this.selectedProduct();
       if (product) {
         this.quantity.setValue(this.selectedProduct()?.minimumOrderQuantity ?? 1);
+        this.rating.set(product.rating ?? 0);
       }
     });
   }
@@ -80,7 +83,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));
       this.productsStore.getProductById(id);
     });
