@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map, switchMap } from 'rxjs';
+import { map } from 'rxjs';
 import { ProductsStore } from '../../store/products.store';
-import { UserEntity } from '../../models/user';
 import { SpinnerComponent } from '../../widgets/spinner/spinner';
 import { DecimalPipe } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,7 +14,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss',
 })
-export class ProductDetailsComponent implements OnInit, AfterViewInit {
+export class ProductDetailsComponent implements OnInit {
   route = inject(ActivatedRoute);
   productsStore = inject(ProductsStore);
   readonly activeImageIndex = signal(0);
@@ -41,7 +40,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     }
 
     return this.productsStore.entities().find((product) => product.id === productId);
-
   });
 
   quantity = new FormControl(1, { nonNullable: true, validators: [Validators.required] });
@@ -56,6 +54,11 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
       if (this.activeImageIndex() >= imagesLength) {
         this.activeImageIndex.set(0);
+      }
+
+      const product = this.selectedProduct();
+      if (product) {
+        this.quantity.setValue(this.selectedProduct()?.minimumOrderQuantity ?? 1);
       }
     });
   }
@@ -81,11 +84,5 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       const id = Number(params.get('id'));
       this.productsStore.getProductById(id);
     });
-  }
-
-  ngAfterViewInit() {
-    if (this.selectedProduct()) {
-      this.quantity.setValue(this.selectedProduct()?.minimumOrderQuantity ?? 1);
-    }
   }
 }
