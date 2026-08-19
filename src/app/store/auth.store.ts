@@ -1,4 +1,11 @@
-import { patchState, signalStore, watchState, withHooks, withMethods, withState } from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  watchState,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import { LoginService } from './login.service';
 import { inject } from '@angular/core';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
@@ -25,9 +32,11 @@ function isAuthState(value: unknown): value is AuthState {
   }
 
   const candidate = value as Partial<AuthState>;
-  return typeof candidate.isLoggedIn === 'boolean'
-    && (typeof candidate.token === 'string' || candidate.token === null)
-    && (typeof candidate.userEmail === 'string' || candidate.userEmail === null);
+  return (
+    typeof candidate.isLoggedIn === 'boolean' &&
+    (typeof candidate.token === 'string' || candidate.token === null) &&
+    (typeof candidate.userEmail === 'string' || candidate.userEmail === null)
+  );
 }
 
 function readPersistedAuthState(): AuthState {
@@ -50,7 +59,8 @@ function readPersistedAuthState(): AuthState {
 
 function persistAuthState(state: AuthState): void {
   try {
-    const shouldClearStorage = !state.isLoggedIn && state.token === null && state.userEmail === null;
+    const shouldClearStorage =
+      !state.isLoggedIn && state.token === null && state.userEmail === null;
     if (shouldClearStorage) {
       globalThis.localStorage?.removeItem(AUTH_STORAGE_KEY);
       return;
@@ -85,30 +95,31 @@ export const AuthStore = signalStore(
     login(email: string, password: string): Observable<boolean> {
       return loginService.login(email, password).pipe(
         tap((response) => {
-          if (response.result) {
-            patchState(store, ({
-              isLoggedIn: response.result,
-              token: response.data.token,
-              userEmail: email,
-            }));
+          console.log('response', response);
+          if (response) {
+            patchState(store, {
+              isLoggedIn: !!response.accessToken,
+              token: response.accessToken,
+              userEmail: response.email,
+            });
             return;
           }
-
-          console.error('Login failed:', response.message);
-          patchState(store, ({
+          console.error('Login failed:', response);
+          patchState(store, {
             isLoggedIn: false,
             token: null,
             userEmail: null,
-          }));
+          });
         }),
-        map((response) => response.result),
+        map((response) => !!response.accessToken),
+        // map((response) => response.result),
         catchError((error) => {
           console.error('Login error:', error);
-          patchState(store, ({
+          patchState(store, {
             isLoggedIn: false,
             token: null,
             userEmail: null,
-          }));
+          });
           return of(false);
         }),
       );
@@ -117,11 +128,11 @@ export const AuthStore = signalStore(
       return store.isLoggedIn() && !!store.token;
     },
     logout() {
-      patchState(store, ({
+      patchState(store, {
         isLoggedIn: false,
         token: null,
         userEmail: null,
-      }));
+      });
     },
-  })
-));
+  })),
+);

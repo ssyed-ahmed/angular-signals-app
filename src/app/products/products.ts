@@ -17,8 +17,6 @@ export class ProductsComponent implements OnInit {
 
   pageSize = 30;
   currentPage = 1;
-  totalPages = 0;
-  totalCount = 0;
 
   ngOnInit() {
     this.loadProducts();
@@ -28,8 +26,6 @@ export class ProductsComponent implements OnInit {
     const skip = (this.currentPage - 1) * this.pageSize;
     const limit = this.pageSize;
     this.productsStore.getProducts({ limit, skip });
-    this.totalCount = this.productsStore.totalCount();
-    this.totalPages = Math.ceil(this.totalCount / this.pageSize);
   }
 
   navigateToPage(page: number) {

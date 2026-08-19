@@ -11,15 +11,12 @@
 @if (selectedProduct(); as product) {
   <div class="product-shell">
     <div class="product-meta-shell">
-      <p>
-        Rating: {{ selectedProduct()?.rating }}
-      </p>
       <div>
-        <ngb-rating [(rate)]="rating" [starTemplate]="t" [readonly]="true" [max]="5" />
+        {{ selectedProduct()?.rating }} <ngb-rating [(rate)]="rating" [starTemplate]="t" [readonly]="true" [max]="5" />
       </div>
       <img src="{{ selectedProduct()?.meta?.qrCode }}">
       <p>
-        <b>Barcode number:</b> {{ selectedProduct()?.meta?.barcode }}
+        <b>Barcode number: </b> <span class="text-primary">{{ selectedProduct()?.meta?.barcode }}</span>
       </p>
     </div>
     <div class="carousel-shell">
@@ -62,7 +59,7 @@
           {{ product.availabilityStatus }}
         </p>
       }
-      <p>{{ product.shippingInformation }}</p>
+      <p><i class="fa-solid fa-van-shuttle" style="color: black"></i> {{ product.shippingInformation }}</p>
       <p>Minimum order quantity: {{ product.minimumOrderQuantity }}</p>
       <form>
         <div class="row mb-3">
@@ -138,7 +135,7 @@
                 Product Dimensions
               </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion2">
+            <div id="collapseTwo" class="accordion-collapse collapse">
               <div class="accordion-body">
                 <table class="table table-striped mt-0">
                   <tbody>
@@ -165,7 +162,7 @@
                 Product Reviews
               </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion2">
+            <div id="collapseThree" class="accordion-collapse collapse">
               <div class="accordion-body">
                 <table class="table table-striped mt-0">
                   <thead>

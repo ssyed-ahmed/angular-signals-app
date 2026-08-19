@@ -22,35 +22,44 @@
     </form>
   </div>
   <div class="mt-2">
-    <h5 class="total-users">Total no. of Users: {{ filteredUsers().length }}</h5>
+<!--    <h5 class="total-users">Total no. of Users: {{ filteredUsers().length }}</h5>-->
     <table class="table table-striped">
       <thead>
       <tr class="table-dark">
-        <th scope="col">User Id</th>
+        <th scope="col">Id</th>
         <th scope="col">First Name</th>
-        <th scope="col">Middle Name</th>
+        <th scope="col">Maiden Name</th>
         <th scope="col">Last Name</th>
-        <th scope="col">Email Id</th>
-        <th scope="col">Mobile No.</th>
-        <th scope="col">Alt Mobile No.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone No.</th>
       </tr>
       </thead>
       <tbody>
-        @for (user of filteredUsers(); track user.id; let i = $index) {
+        @for (user of users(); track user.id; let i = $index) {
           <tr class="user-row-edit" (click)="openUserDetails(user.id)">
             <td>
               <i class="fa-solid fa-user"></i> {{ user.id }}
             </td>
             <td>{{ user.firstName }}</td>
-            <td>{{ user.middleName }}</td>
+            <td>{{ user.maidenName }}</td>
             <td>{{ user.lastName }}</td>
-            <td>{{ user.emailId }}</td>
-            <td>{{ user.mobileNo }}</td>
-            <td>{{ user.altMobileNo }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
           </tr>
         }
       </tbody>
     </table>
+  </div>
+  <div class="mt-5">
+    Total = {{ usersStore.totalCount() }}
+    <ngb-pagination
+      [collectionSize]="usersStore.totalCount()"
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [maxSize]="10"
+      [boundaryLinks]="true"
+      (pageChange)="navigateToPage($event)"
+    />
   </div>
 }
 

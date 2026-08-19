@@ -10,7 +10,7 @@
   </div>
   <div class="mt-5">
     <ngb-pagination
-      [collectionSize]="totalCount"
+      [collectionSize]="productsStore.totalCount()"
       [(page)]="currentPage"
       [pageSize]="pageSize"
       [maxSize]="10"

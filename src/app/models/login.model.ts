@@ -1,7 +1,16 @@
+export enum Gender {
+  male = 'male',
+  female = 'female',
+}
+
 export interface LoginResponse {
-  message: string;
-  result: boolean;
-  data: {
-    token: string;
-  }
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  gender: Gender;
+  image: string;
+  accessToken: string;
+  refreshToken: string;
 }
